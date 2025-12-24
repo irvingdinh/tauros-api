@@ -14,7 +14,8 @@ type PocketbaseService interface{}
 
 func NewPocketbaseService(lc fx.Lifecycle) PocketbaseService {
 	i := &pocketbaseServiceImpl{
-		app: pocketbase.New(),
+		app:  pocketbase.New(),
+		args: []string{"serve", "--http=0.0.0.0:8090"},
 	}
 
 	i.app.OnServe().BindFunc(func(e *core.ServeEvent) error {
@@ -32,11 +33,13 @@ func NewPocketbaseService(lc fx.Lifecycle) PocketbaseService {
 
 type pocketbaseServiceImpl struct {
 	app    *pocketbase.PocketBase
+	args   []string
 	server *http.Server
 }
 
 func (i *pocketbaseServiceImpl) Start(ctx context.Context) error {
 	go func() {
+		i.app.RootCmd.SetArgs(i.args)
 		err := i.app.Start()
 		if err != nil {
 			log.Fatal(err)
