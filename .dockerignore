@@ -1,0 +1,37 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test files
+*_test.go
+*.test
+
+# Documentation
+*.md
+LICENSE
+
+# Local data (mount as volume instead)
+pb_data
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.docker
+
+# Misc
+.DS_Store
+.env*
+
